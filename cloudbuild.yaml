@@ -1,0 +1,7 @@
+steps:
+  - name: 'gcr.io/cloud-builders/bash'
+    entrypoint: 'bash'
+    args:
+      - '-c'
+      - 'echo "hola"'
+
