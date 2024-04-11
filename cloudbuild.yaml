@@ -1,5 +1,5 @@
 steps:
-  - name: 'gcr.io/cloud-builders/bash'
+  - name: 'gcr.io/cloud-builders/bash/20220107'
     entrypoint: 'bash'
     args:
       - '-c'
