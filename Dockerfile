@@ -1,2 +1,2 @@
-FROM adminer
+FROM adminer:latest
 EXPOSE 80
