@@ -1,2 +1,2 @@
-FROM nginx
+FROM adminer
 EXPOSE 80
