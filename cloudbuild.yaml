@@ -7,7 +7,12 @@ steps:
     #waitFor: ['tag-adminer']
     id: 'push-adminer'
   
-  - name: 'gcr.io/cloud-builders/docker'
-    args: ['run', '--name', 'adminer', '-d', '-p', '8080:8080', 'gcr.io/$PROJECT_ID/adminer:latest']
-    #args: ['run', 'gcr.io/$PROJECT_ID/adminer:latest']
-    id: 'run-adminer'
+steps:
+  - name: 'gcr.io/cloud-builders/gcloud'
+    args: 
+      - 'run'
+      - 'deploy'
+      - 'adminer'
+      - '--image=gcr.io/$PROJECT_ID/adminer:latest'
+      - '--region=europe-west1'
+      - '--platform=managed'
