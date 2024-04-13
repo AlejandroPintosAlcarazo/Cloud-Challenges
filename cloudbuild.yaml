@@ -11,4 +11,4 @@ steps:
     waitFor: ['tag-adminer']
     id: 'push-adminer'
 
-
+    
