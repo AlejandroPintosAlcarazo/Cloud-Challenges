@@ -7,7 +7,6 @@ steps:
     #waitFor: ['tag-adminer']
     id: 'push-adminer'
   
-steps:
   - name: 'gcr.io/cloud-builders/gcloud'
     args: 
       - 'run'
