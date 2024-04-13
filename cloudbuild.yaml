@@ -6,5 +6,7 @@ steps:
     args: ['push', 'gcr.io/$PROJECT_ID/adminer']
     #waitFor: ['tag-adminer']
     id: 'push-adminer'
-
-    
+  
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['run', '--name', 'adminer', '-d', '-p', '8080:8080', 'gcr.io/$PROJECT_ID/adminer:latest']
+    id: 'run-adminer'
