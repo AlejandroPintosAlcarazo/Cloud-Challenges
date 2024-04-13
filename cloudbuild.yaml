@@ -1,7 +1,5 @@
 steps:
-  - name: 'gcr.io/cloud-builders/bash/20220107'
-    entrypoint: 'bash'
-    args:
-      - '-c'
-      - 'echo "hola"'
-
+- name: ubuntu
+  args:
+    - echo
+    - hola mundo
