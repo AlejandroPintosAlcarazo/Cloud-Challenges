@@ -15,3 +15,4 @@ steps:
       - '--image=gcr.io/$PROJECT_ID/adminer'
       - '--region=europe-west1'
       - '--platform=managed'
+      - '--allow-unauthenticated'
