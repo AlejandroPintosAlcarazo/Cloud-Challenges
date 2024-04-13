@@ -2,7 +2,7 @@ steps:
   - name: 'gcr.io/cloud-builders/docker'
     args: ['build', '-t', 'gcr.io/$PROJECT_ID/my-app', '.']
 
-  - name: 'gcr.io/cloud-builders/docker'
+  - name: 'gcr.io/cloud-builders/docker'  
     args: ['tag', 'adminer', 'gcr.io/$PROJECT_ID/adminer']
     id: 'tag-adminer'
 
@@ -10,3 +10,5 @@ steps:
     args: ['push', 'gcr.io/$PROJECT_ID/adminer']
     waitFor: ['tag-adminer']
     id: 'push-adminer'
+
+
