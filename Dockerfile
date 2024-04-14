@@ -1,2 +1,2 @@
-FROM adminer:latest
+FROM nginx
 EXPOSE 8080
