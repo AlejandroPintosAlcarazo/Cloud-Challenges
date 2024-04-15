@@ -14,5 +14,5 @@ steps:
       - 'adminer'
       - '--image=gcr.io/$PROJECT_ID/adminer'
       - '--region=europe-west1'
-      - --network=connector
+      - --network=$PROJECT_ID/global/networks/connector
       - '--platform=managed'
