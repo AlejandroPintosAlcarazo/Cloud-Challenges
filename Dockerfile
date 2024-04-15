@@ -1,2 +1,6 @@
-FROM adminer:latest
+FROM wordpress:latest
+ENV WORPRESS_DB_HOST  "10.73.0.3"
+ENV WORPRESS_DB_USER "user"
+ENV WORPRESS_DB_PASSWORD "password"
+ENV WORPRESS_DB_DATABASE "my-database"
 EXPOSE 80
