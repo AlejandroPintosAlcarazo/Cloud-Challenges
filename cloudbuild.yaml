@@ -14,5 +14,5 @@ steps:
       - 'adminer'
       - '--image=gcr.io/$PROJECT_ID/adminer'
       - '--region=europe-west1'
-      - --add-cloudsql-instances=connector
+      - --network=connector
       - '--platform=managed'
