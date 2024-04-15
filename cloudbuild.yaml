@@ -16,5 +16,5 @@ steps:
       - '--region=europe-west1'
       - '--vpc-connector=_VPC_CONNECTOR'
       - '--platform=managed'
-      - '--allow-unauthetificet'
-      - '--port:80'
+      - '--allow-unauthenticated'
+      - '--port=80'
