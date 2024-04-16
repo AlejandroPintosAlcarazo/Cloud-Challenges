@@ -14,7 +14,7 @@ steps:
       - 'adminer'
       - '--image=gcr.io/$PROJECT_ID/adminer'
       - '--region=europe-west1'
-      - '--vpc-connector=_VPC_CONNECTOR'
       - '--platform=managed'
       - '--allow-unauthenticated'
+      - '--vpc-connector=_VPC_CONNECTOR'
       - '--port=80'
