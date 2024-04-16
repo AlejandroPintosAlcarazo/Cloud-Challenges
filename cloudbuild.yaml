@@ -17,4 +17,4 @@ steps:
       - '--platform=managed'
       - '--allow-unauthenticated'
       - '--vpc-connector=$_VPC_CONNECTOR'
-      - '--port=80'
+      - '--port=8080'
