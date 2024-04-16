@@ -12,7 +12,7 @@ steps:
       - 'run'
       - 'deploy'
       - 'wordpress'
-      - '--image=gcr.io/$PROJECT_ID/adminer'
+      - '--image=gcr.io/$PROJECT_ID/wordpress'
       - '--region=europe-west1'
       - '--platform=managed'
       - '--allow-unauthenticated'
