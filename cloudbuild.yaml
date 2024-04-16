@@ -5,7 +5,7 @@ steps:
   - name: 'gcr.io/cloud-builders/docker'
     args: ['push', 'gcr.io/$PROJECT_ID/wordpress']
     #waitFor: ['tag-adminer']
-    id: 'push-adminer'
+    id: 'push-wordpress'
   
   - name: 'gcr.io/cloud-builders/gcloud'
     args: 
