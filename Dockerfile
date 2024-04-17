@@ -19,7 +19,7 @@ FROM wordpress:latest
 #
 #RUN chmod +x /entrypoint.sh
 
-ENV WORDPRESS_DB_HOST "10.100.0.5"
+ENV WORDPRESS_DB_HOST "example.internal."
 ENV WORDPRESS_DB_USER "user"
 ENV WORDPRESS_DB_PASSWORD "password"
 ENV WORDPRESS_DB_NAME "my-database"

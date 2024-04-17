@@ -1,7 +1,7 @@
 
 steps:
   - name: 'gcr.io/cloud-builders/docker'
-    args: ['build', '--build-arg', 'WORDPRESS_DB_HOST=10.7.0.3', '--build-arg', 'WORDPRESS_DB_USER=user', '--build-arg', 'WORDPRESS_DB_PASSWORD=password', '--build-arg', 'WORDPRESS_DB_NAME=my-database', '-t', 'gcr.io/$PROJECT_ID/wordpress:latest', '.']
+    args: ['build', '--build-arg', 'WORDPRESS_DB_HOST=example.internal.', '--build-arg', 'WORDPRESS_DB_USER=user', '--build-arg', 'WORDPRESS_DB_PASSWORD=password', '--build-arg', 'WORDPRESS_DB_NAME=my-database', '-t', 'gcr.io/$PROJECT_ID/wordpress:latest', '.']
 
 
   - name: 'gcr.io/cloud-builders/docker'
@@ -21,4 +21,4 @@ steps:
       - '--allow-unauthenticated'
       - '--vpc-connector=projects/fluted-oath-420013/locations/europe-west1/connectors/peering-tool'
       - '--port=80'
-      - '--set-env-vars=WORDPRESS_DB_HOST=10.7.0.3,WORDPRESS_DB_USER=user,WORDPRESS_DB_PASSWORD=password,WORDPRESS_DB_NAME=my-database'
+      - '--set-env-vars=WORDPRESS_DB_HOST=example.internal.,WORDPRESS_DB_USER=user,WORDPRESS_DB_PASSWORD=password,WORDPRESS_DB_NAME=my-database'
