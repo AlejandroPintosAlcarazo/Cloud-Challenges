@@ -10,6 +10,7 @@
 #CMD ["apache2-foreground"]
 #EXPOSE 80
 
+
 FROM wordpress:latest
 
 COPY static-pro.zip /static-pro.zip
