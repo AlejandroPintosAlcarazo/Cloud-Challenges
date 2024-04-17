@@ -3,7 +3,7 @@ version: '3.7'
 services:
   wordpress:
     build:
-      context: .  # Assumes Dockerfile is in the same directory as this file
+      context: . 
     ports:
       - "8080:80"
     environment:
