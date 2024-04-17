@@ -1,6 +1,6 @@
-#!/usr/bin/env bash
+set -Eeuo pipefail
 
-if [[ "$1" == * ]] || [ "$1" = 'php-fpm' ]; then
+if [[ "$1" == apache2* ]] || [ "$1" = 'php-fpm' ]; then
 	uid="$(id -u)"
 	gid="$(id -g)"
 	if [ "$uid" = '0' ]; then
@@ -94,3 +94,5 @@ if [[ "$1" == * ]] || [ "$1" = 'php-fpm' ]; then
 		done
 	fi
 fi
+
+exec "$@"
