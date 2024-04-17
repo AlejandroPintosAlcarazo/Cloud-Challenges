@@ -55,6 +55,6 @@ steps:
       - '--add-cloudsql-instances'
       - 'fluted-oath-420013:europe-west1:my-database'
       - '--allow-unauthenticated'
-      - '--vpc-connector=$_VPC_CONNECTOR'
+      - '--vpc-connector=projects/fluted-oath-420013/locations/europe-west1/connectors/peering-tool'
       - '--port=80'
       - '--set-env-vars=WORDPRESS_DB_HOST=10.100.0.5,WORDPRESS_DB_USER=user,WORDPRESS_DB_PASSWORD=password,WORDPRESS_DB_NAME=my-database'
