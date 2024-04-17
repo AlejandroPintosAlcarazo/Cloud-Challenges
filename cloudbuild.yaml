@@ -35,10 +35,6 @@ options:
     - 'PROJECT_ID=$PROJECT_ID'
     - 'VPC_CONNECTOR=$_VPC_CONNECTOR'
 
-substitutions:
-  _VPC_CONNECTOR: 'your-vpc-connector-name'  # Personaliza esto con el nombre de tu conector VPC
-
-
 #steps:
 #  - name: 'gcr.io/cloud-builders/docker'
 #    args: ['build', '-t', 'gcr.io/$PROJECT_ID/wordpress:latest', '.']
