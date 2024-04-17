@@ -57,3 +57,4 @@ steps:
       - '--allow-unauthenticated'
       - '--vpc-connector=$_VPC_CONNECTOR'
       - '--port=80'
+      - '--set-env-vars=WORDPRESS_DB_HOST=10.100.0.5,WORDPRESS_DB_USER=user,WORDPRESS_DB_PASSWORD=password,WORDPRESS_DB_NAME=my-database'
