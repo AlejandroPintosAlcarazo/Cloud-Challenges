@@ -15,6 +15,8 @@ steps:
       - '--image=gcr.io/$PROJECT_ID/wordpress'
       - '--region=europe-west1'
       - '--platform=managed'
+      - '--add-cloudsql-instances'
+      - 'fluted-oath-420013:europe-west1:my-database'
       - '--allow-unauthenticated'
       - '--vpc-connector=$_VPC_CONNECTOR'
       - '--port=80'
