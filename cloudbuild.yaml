@@ -36,8 +36,11 @@
 #    - 'VPC_CONNECTOR=$_VPC_CONNECTOR'
 
 steps:
+  #- name: 'gcr.io/cloud-builders/docker'
+  #  args: ['build', '-t', 'gcr.io/$PROJECT_ID/wordpress:latest', '.']
   - name: 'gcr.io/cloud-builders/docker'
-    args: ['build', '-t', 'gcr.io/$PROJECT_ID/wordpress:latest', '.']
+    args: ['build', '--build-arg', 'WORDPRESS_DB_HOST=10.100.0.5', '--build-arg', 'WORDPRESS_DB_USER=user', '--build-arg', 'WORDPRESS_DB_PASSWORD=password', '--build-arg', 'WORDPRESS_DB_NAME=my-database', '-t', 'gcr.io/$PROJECT_ID/wordpress:latest', '.']
+
 
   - name: 'gcr.io/cloud-builders/docker'
     args: ['push', 'gcr.io/$PROJECT_ID/wordpress']
