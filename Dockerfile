@@ -13,7 +13,7 @@
 
 
 FROM wordpress:latest
-
+COPY ./wp-config-docker.php /var/www/html/wp-config.php
 COPY static-pro.zip /static-pro.zip
 COPY entrypoint.sh /entrypoint.sh
 
