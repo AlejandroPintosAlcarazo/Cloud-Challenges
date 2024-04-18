@@ -1,5 +1,4 @@
 #!/bin/bash
-set -euo pipefail
 
 if [[ "$1" == * ]] || [ "$1" = 'php-fpm' ]; then
 	uid="$(id -u)"
