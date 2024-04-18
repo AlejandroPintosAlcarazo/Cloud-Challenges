@@ -19,6 +19,6 @@ ENV WORDPRESS_DB_PASSWORD "password"
 ENV WORDPRESS_DB_NAME "my-database"
 
 #ENTRYPOINT ["/entrypoint.sh"]
-#CMD ["apache2-foreground"]
+CMD ["apache2-foreground"]
 
 EXPOSE 80
