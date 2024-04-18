@@ -1,7 +1,8 @@
 
 FROM wordpress:latest
 
-COPY static-pro.zip /wp-content/plugins/static-pro.zip
+COPY static-pro.zip /var/www/html/wp-content/plugins/static-pro.zip
+#COPY static-pro.zip /wp-content/plugins/static-pro.zip
 #COPY entrypoint.sh /entrypoint.sh
 #RUN chmod +x /entrypoint.sh
 
