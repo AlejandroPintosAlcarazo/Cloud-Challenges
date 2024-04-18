@@ -1,3 +1,6 @@
+#!/bin/bash
+set -euo pipefail
+
 if [[ "$1" == * ]] || [ "$1" = 'php-fpm' ]; then
 	uid="$(id -u)"
 	gid="$(id -g)"
@@ -43,11 +46,8 @@ if [[ "$1" == * ]] || [ "$1" = 'php-fpm' ]; then
 			--file -
 		)
 		if [ "$uid" != '0' ]; then
-			# avoid "tar: .: Cannot utime: Operation not permitted" and "tar: .: Cannot change mode to rwxr-xr-x: Operation not permitted"
 			targetTarArgs+=( --no-overwrite-dir )
 		fi
-		# loop over "pluggable" content in the source, and if it already exists in the destination, skip it
-		# https://github.com/docker-library/wordpress/issues/506 ("wp-content" persisted, "akismet" updated, WordPress container restarted/recreated, "akismet" downgraded)
 		for contentPath in \
 			/usr/src/wordpress/.htaccess \
 			/usr/src/wordpress/wp-content/*/*/ \
@@ -72,7 +72,6 @@ if [[ "$1" == * ]] || [ "$1" = 'php-fpm' ]; then
 		; do
 			if [ -s "$wpConfigDocker" ]; then
 				echo >&2 "No 'wp-config.php' found in $PWD, but 'WORDPRESS_...' variables supplied; copying '$wpConfigDocker' (${wpEnvs[*]})"
-				# using "awk" to replace all instances of "put your unique phrase here" with a properly unique string (for AUTH_KEY and friends to have safe defaults if they aren't specified with environment variables)
 				awk '
 					/put your unique phrase here/ {
 						cmd = "head -c1m /dev/urandom | sha1sum | cut -d\\  -f1"
@@ -83,8 +82,6 @@ if [[ "$1" == * ]] || [ "$1" = 'php-fpm' ]; then
 					{ print }
 				' "$wpConfigDocker" > wp-config.php
 				if [ "$uid" = '0' ]; then
-					# attempt to ensure that wp-config.php is owned by the run user
-					# could be on a filesystem that doesn't allow chown (like some NFS setups)
 					chown "$user:$group" wp-config.php || true
 				fi
 				break
@@ -93,4 +90,13 @@ if [[ "$1" == * ]] || [ "$1" = 'php-fpm' ]; then
 	fi
 fi
 
-exec "$@"
+# Instalación de WP-CLI
+echo "Descargando WP-CLI..."
+curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar
+chmod +x wp-cli.phar
+mv wp-cli.phar /usr/local/bin/wp
+
+# Copia del plugin static-pro.zip ya incluida arriba
+# Unzip y activación del plugin
+echo "Instalando el plugin static-pro..."
+wp plugin install /var/www/html/wp-content/plugins/static-pro
