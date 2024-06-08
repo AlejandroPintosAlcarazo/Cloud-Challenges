@@ -1,19 +1,21 @@
-# Usa la imagen oficial de Go como base
+# Use the official Golang image as a parent image
 FROM golang:1.20
 
-# Establece el directorio de trabajo dentro del contenedor
+# Set the current working directory inside the container
 WORKDIR /app
 
-# Copia el código fuente de la aplicación
+# Copy the current directory contents into the container at /app
 COPY . .
 
-# Inicializa un módulo Go en el directorio actual
-RUN go mod init my-go-app
+# Check if go.mod already exists
+RUN if [ ! -f "go.mod" ]; then go mod init my-go-app; fi
 
-RUN go mod tidy
-# Compila la aplicación
+# Tidy up the Go module if go.mod exists
+RUN if [ -f "go.mod" ]; then go mod tidy; fi
+
+# Build the Go app
 RUN go build -o main .
 
-# Define el comando predeterminado para ejecutar el binario compilado
+# Command to run the executable
 CMD ["./main"]
 

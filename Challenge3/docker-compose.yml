@@ -2,7 +2,9 @@ version: '3.8'
 
 services:
   mongodb:
-    image: mongo
+    build:
+      context: .
+      dockerfile: Dockerfile-mongo  # Nombre del nuevo Dockerfile para MongoDB
     ports:
       - "27017:27017"
     volumes:
@@ -12,6 +14,12 @@ services:
     build: .
     ports:
       - "8080:8080"
+    depends_on:
+      - mongodb
+
+  mongodb-client:
+    image: mongo
+    command: ["mongo"]
     depends_on:
       - mongodb
 
