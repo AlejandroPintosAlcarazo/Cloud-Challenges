@@ -1,0 +1,88 @@
+swagger: "2.0"
+info:
+  version: "1.0.0"
+  title: "API de Asteroides"
+paths:
+  /asteroids:
+    get:
+      summary: "Obtener todos los asteroides"
+      responses:
+        200:
+          description: "Éxito"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Asteroid"
+    post:
+      summary: "Crear un nuevo asteroide"
+      responses:
+        200:
+          description: "Éxito"
+          schema:
+            type: "object"
+            properties:
+              message:
+                type: "string"
+                example: "Success"
+  /asteroids/{id}:
+    get:
+      summary: "Obtener un asteroide por su ID"
+      parameters:
+        - name: id
+          in: path
+          description: "ID del asteroide"
+          required: true
+          type: "string"
+      responses:
+        200:
+          description: "Éxito"
+          schema:
+            $ref: "#/definitions/Asteroid"
+    put:
+      summary: "Actualizar un asteroide por su ID"
+      parameters:
+        - name: id
+          in: path
+          description: "ID del asteroide"
+          required: true
+          type: "string"
+      responses:
+        200:
+          description: "Éxito"
+          schema:
+            type: "object"
+            properties:
+              message:
+                type: "string"
+                example: "Success"
+    delete:
+      summary: "Eliminar un asteroide por su ID"
+      parameters:
+        - name: id
+          in: path
+          description: "ID del asteroide"
+          required: true
+          type: "string"
+      responses:
+        200:
+          description: "Éxito"
+          schema:
+            type: "object"
+            properties:
+              message:
+                type: "string"
+                example: "Success"
+definitions:
+  Asteroid:
+    type: "object"
+    properties:
+      id:
+        type: "string"
+        example: "12345"
+      name:
+        type: "string"
+        example: "Apophis"
+      diameter_km:
+        type: "number"
+        example: 0.32
+

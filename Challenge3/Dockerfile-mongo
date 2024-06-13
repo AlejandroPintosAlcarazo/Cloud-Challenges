@@ -1,8 +1,0 @@
-# Use the official MongoDB image as a parent image
-FROM mongo
-
-# Instalar el cliente de MongoDB
-RUN apt-get update && apt-get install -y mongodb-org-tools
-
-CMD ["mongod"]
-

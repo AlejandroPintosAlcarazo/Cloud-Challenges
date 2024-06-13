@@ -1,0 +1,29 @@
+steps:
+  # Construir la imagen del contenedor.
+  - id: 'Build App'
+    name: 'gcr.io/cloud-builders/docker'
+    entrypoint: 'sh'
+    args:
+      - '-c'
+      - |
+        echo "******** DOCKER BUILD APP ***"
+        echo "******** At project: ${PROJECT_ID} *********"
+        docker build -t europe-west1-docker.pkg.dev/$PROJECT_ID/api/api-go:$COMMIT_SHA .
+        docker push europe-west1-docker.pkg.dev/$PROJECT_ID/api/api-go:$COMMIT_SHA
+
+  # Desplegar en Cloud Run.
+  - id: 'Deploy Cloud Run'
+    name: 'gcr.io/cloud-builders/gcloud'
+    entrypoint: 'sh'
+    args:
+      - '-c'
+      - |
+        echo "******** DEPLOY CLOUD RUN **"
+        echo "******** At project: ${PROJECT_ID} *********"
+        gcloud run deploy api-go  \
+          --image=europe-west1-docker.pkg.dev/$PROJECT_ID/api/api-go:$COMMIT_SHA \
+          --region=europe-west1 \
+          --platform=managed \
+          --port=8080 \
+          --set-env-vars="ENV=dev,MONGOURI=mongodb+srv://AlejandroPintosAlcarazo:1P2i3n4t5o6s.@alejandropintosalcarazo.thjnllv.mongodb.net/?retryWrites=true&w=majority&appName=AlejandroPintosAlcarazo" \
+          --project=$PROJECT_ID
