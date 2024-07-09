@@ -1,0 +1,10 @@
+WITH example_data AS (
+  SELECT '025323W' AS lon, '381853N' AS lat
+)
+SELECT
+  ST_GEOGPOINT(
+    `my_project.my_dataset.DMS_TO_DD`(lon),
+    `my_project.my_dataset.DMS_TO_DD`(lat)
+  ) AS point
+FROM
+  example_data

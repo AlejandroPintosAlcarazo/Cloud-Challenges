@@ -1,0 +1,15 @@
+config {
+  type: "operations",
+  schema: "AEMET_Reporting",
+  name: "export_to_map"
+}
+
+INSERT INTO `AEMET_Reporting.map` (station_id, date, temperature, humidity, coordinates)
+SELECT
+  station_id,
+  date,
+  temperature,
+  humidity,
+  ST_GeogPoint(cleaned_longitud, cleaned_latitud) AS coordinates
+FROM
+  ${ref("weather_data_transformed")}

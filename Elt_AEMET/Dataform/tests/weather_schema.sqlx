@@ -1,0 +1,8 @@
+config {
+  type: "schema",
+  schema: "AEMET_Staging"
+}
+
+create schema if not exists ${schema};
+
+

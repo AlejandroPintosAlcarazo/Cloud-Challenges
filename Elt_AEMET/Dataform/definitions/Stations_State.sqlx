@@ -1,0 +1,12 @@
+config {
+  type: "view",
+  schema: "AEMET_Staging",
+  name: "Stations_State"
+}
+
+SELECT
+  id AS station_id,
+  latitud AS latitude,
+  longitud AS longitude
+FROM
+  `challenge-4-426500.AEMET_Staging.Stations_State`

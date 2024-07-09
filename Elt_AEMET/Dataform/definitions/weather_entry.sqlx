@@ -1,0 +1,13 @@
+config {
+  type: "view",
+  schema: "AEMET_Staging",
+  name: "Weather_entry"
+}
+
+SELECT
+  indicativo AS station_id,
+  fecha AS weather_timestamp,
+  tmed AS temp,
+  prec AS humidity
+FROM
+  `challenge-4-426500.AEMET_Staging.Weather_entry`

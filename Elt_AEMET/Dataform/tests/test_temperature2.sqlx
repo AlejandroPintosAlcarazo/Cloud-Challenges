@@ -1,0 +1,21 @@
+-- Verify cleaned temperature entries
+SELECT
+  indicativo AS station_id,
+  fecha AS date,
+  tmed AS raw_temperature,
+  SAFE_CAST(REPLACE(tmed, ',', '.') AS FLOAT64) AS temperature
+FROM
+  `AEMET_Staging.Weather_entry`
+WHERE
+  SAFE_CAST(REPLACE(tmed, ',', '.') AS FLOAT64) IS NOT NULL;
+
+-- Verify cleaned humidity entries
+SELECT
+  indicativo AS station_id,
+  fecha AS date,
+  prec AS raw_humidity,
+  SAFE_CAST(REPLACE(prec, ',', '.') AS FLOAT64) AS humidity
+FROM
+  `AEMET_Staging.Weather_entry`
+WHERE
+  SAFE_CAST(REPLACE(prec, ',', '.') AS FLOAT64) IS NOT NULL;

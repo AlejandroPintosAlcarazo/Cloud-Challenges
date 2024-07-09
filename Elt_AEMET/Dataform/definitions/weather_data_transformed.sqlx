@@ -1,0 +1,52 @@
+config {
+  type: "view",
+  schema: "AEMET_Reporting",
+  name: "weather_data_transformed"
+}
+
+WITH cleaned_data AS (
+  SELECT
+    weather.indicativo AS station_id,
+    DATE(weather.fecha) AS date,
+    SAFE_CAST(REPLACE(weather.tmed, ',', '.') AS FLOAT64) AS temperature,
+    SAFE_CAST(REPLACE(weather.prec, ',', '.') AS FLOAT64) AS humidity,
+    stations.longitud,
+    stations.latitud,
+    ${functions.DMS_TO_DD('stations.longitud')} AS cleaned_longitud,
+    ${functions.DMS_TO_DD('stations.latitud')} AS cleaned_latitud
+  FROM
+    ${ref('AEMET_Staging.Weather_entry')} weather
+  JOIN
+    ${ref('AEMET_Staging.Stations_State')} stations
+  ON
+    weather.indicativo = stations.id
+  WHERE
+    weather.fecha IS NOT NULL
+    AND stations.longitud IS NOT NULL
+    AND stations.latitud IS NOT NULL
+    AND SAFE_CAST(REPLACE(weather.prec, ',', '.') AS FLOAT64) IS NOT NULL
+    AND SAFE_CAST(REPLACE(weather.tmed, ',', '.') AS FLOAT64) IS NOT NULL
+),
+valid_data AS (
+  SELECT
+    station_id,
+    date,
+    temperature,
+    humidity,
+    cleaned_longitud,
+    cleaned_latitud
+  FROM
+    cleaned_data
+  WHERE
+    cleaned_longitud IS NOT NULL
+    AND cleaned_latitud IS NOT NULL
+)
+SELECT
+  station_id,
+  date,
+  temperature,
+  humidity,
+  cleaned_longitud,
+  cleaned_latitud
+FROM
+  valid_data;

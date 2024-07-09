@@ -1,0 +1,34 @@
+config {
+  type: "table",
+  schema: "AEMET_Staging",
+  name: "TestDmsToDd"
+}
+
+-- Function to convert DMS (degrees, minutes, seconds) to DD (decimal degrees)
+CREATE TEMP FUNCTION DMS_TO_DD(dms STRING) RETURNS FLOAT64 LANGUAGE js AS """
+  function dmsToDd(dms) {
+    var sign = (dms.slice(-1) === 'N' || dms.slice(-1) === 'E') ? 1 : -1;
+    var degrees = parseFloat(dms.slice(0, dms.length - 5).replace(',', '.'));
+    var minutes = parseFloat(dms.slice(dms.length - 5, dms.length - 3).replace(',', '.'));
+    var seconds = parseFloat(dms.slice(dms.length - 3, dms.length - 1).replace(',', '.'));
+    return sign * (degrees + minutes / 60 + seconds / 3600);
+  }
+  return dmsToDd(dms);
+""";
+
+-- Test data
+WITH test_data AS (
+  SELECT '381853N' AS lat, '025323W' AS lon
+  UNION ALL
+  SELECT '401234N', '085634E'
+  UNION ALL
+  SELECT '123456S', '987654W'
+)
+-- Applying the function to the test data
+SELECT
+  lat,
+  lon,
+  DMS_TO_DD(lat) AS latitude,
+  DMS_TO_DD(lon) AS longitude
+FROM
+  test_data
