@@ -1,0 +1,28 @@
+resource "google_compute_network" "vpc_network" {
+  name                    = "vpc-network"
+  auto_create_subnetworks = false
+}
+
+resource "google_compute_subnetwork" "vpc_subnet" {
+  name          = "vpc-subnet"
+  ip_cidr_range = "10.8.0.0/20"
+  region        = var.region
+  network       = google_compute_network.vpc_network.self_link
+}
+
+resource "google_vpc_access_connector" "vpc_connector" {
+  name    = "vpc-connector"
+  region  = var.region
+  network = google_compute_subnetwork.vpc_subnet.self_link
+
+  ip_cidr_range = "10.8.16.0/28"
+}
+
+resource "google_project_iam_member" "cloud_run_vpc_user" {
+  role   = "roles/run.vpcaccess.user"
+  member = "serviceAccount:${var.cloud_run_service_account}"
+}
+
+output "vpc_connector_name" {
+  value = google_vpc_access_connector.vpc_connector.name
+}
